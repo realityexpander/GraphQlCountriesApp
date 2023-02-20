@@ -2,10 +2,7 @@ package com.realityexpander.graphqlcountriesapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.realityexpander.graphqlcountriesapp.domain.DetailedCountry
-import com.realityexpander.graphqlcountriesapp.domain.GetCountriesUseCase
-import com.realityexpander.graphqlcountriesapp.domain.GetCountryUseCase
-import com.realityexpander.graphqlcountriesapp.domain.SimpleCountry
+import com.realityexpander.graphqlcountriesapp.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
     private val getCountriesUseCase: GetCountriesUseCase,
-    private val getCountryUseCase: GetCountryUseCase
+    private val getCountryUseCase: GetCountryUseCase,
+    private val countryClient: ICountryClient
 ): ViewModel() {
 
     private val _state = MutableStateFlow(CountriesState())
@@ -28,7 +26,13 @@ class CountriesViewModel @Inject constructor(
                 isLoading = true
             ) }
             _state.update { it.copy(
-                countries = getCountriesUseCase.execute(),
+//                countries = getCountriesUseCase.execute(),
+                countries = try {
+                        countryClient.getCountries()
+                    } catch(e:Exception) {
+                        println("Error: $e")
+                        listOf(SimpleCountry("ERROR", e.localizedMessage, "⚠️", ""))
+                    },
                 isLoading = false
             ) }
         }
@@ -37,7 +41,13 @@ class CountriesViewModel @Inject constructor(
     fun selectCountry(code: String) {
         viewModelScope.launch {
             _state.update { it.copy(
-                selectedCountry = getCountryUseCase.execute(code)
+//                selectedCountry = getCountryUseCase.execute(code)
+                selectedCountry = try {
+                    countryClient.getCountry(code)
+                } catch(e:Exception) {
+                    println("Error: $e")
+                    DetailedCountry("ERROR", e.localizedMessage, "⚠️", "", "", emptyList(), "")
+                }
             ) }
         }
     }

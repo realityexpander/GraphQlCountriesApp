@@ -1,7 +1,7 @@
 package com.realityexpander.graphqlcountriesapp.domain
 
 class GetCountriesUseCase(
-    private val countryClient: CountryClient
+    private val countryClient: ICountryClient
 ) {
 
     suspend fun execute(): List<SimpleCountry> {

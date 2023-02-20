@@ -3,13 +3,13 @@ package com.realityexpander.graphqlcountriesapp.data
 import com.apollographql.apollo3.ApolloClient
 import com.realityexpander.CountriesQuery
 import com.realityexpander.CountryQuery
-import com.realityexpander.graphqlcountriesapp.domain.CountryClient
 import com.realityexpander.graphqlcountriesapp.domain.DetailedCountry
+import com.realityexpander.graphqlcountriesapp.domain.ICountryClient
 import com.realityexpander.graphqlcountriesapp.domain.SimpleCountry
 
-class ApolloCountryClient(
+class CountryClientApolloImpl(
     private val apolloClient: ApolloClient
-): CountryClient {
+): ICountryClient {
 
     override suspend fun getCountries(): List<SimpleCountry> {
         return apolloClient

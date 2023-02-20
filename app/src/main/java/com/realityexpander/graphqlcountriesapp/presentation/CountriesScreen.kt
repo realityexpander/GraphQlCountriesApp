@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -173,4 +174,9 @@ private fun CountryItem(
             Text(text = country.capital)
         }
     }
+
+    Divider(modifier = Modifier
+        .fillMaxWidth()
+        .background(Color.LightGray)
+    )
 }

@@ -1,6 +1,6 @@
 package com.realityexpander.graphqlcountriesapp.domain
 
-interface CountryClient {
+interface ICountryClient {
     suspend fun getCountries(): List<SimpleCountry>
     suspend fun getCountry(code: String): DetailedCountry?
 }
