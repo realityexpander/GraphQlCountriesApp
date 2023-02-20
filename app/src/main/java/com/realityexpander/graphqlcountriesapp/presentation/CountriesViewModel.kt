@@ -26,9 +26,10 @@ class CountriesViewModel @Inject constructor(
                 isLoading = true
             ) }
             _state.update { it.copy(
-//                countries = getCountriesUseCase.execute(),
+//                countries = getCountriesUseCase.execute(), // remove use case implementation
                 countries = try {
                         countryClient.getCountries()
+                            .sortedBy { it.name }
                     } catch(e:Exception) {
                         println("Error: $e")
                         listOf(SimpleCountry("ERROR", e.localizedMessage, "⚠️", ""))
@@ -41,7 +42,7 @@ class CountriesViewModel @Inject constructor(
     fun selectCountry(code: String) {
         viewModelScope.launch {
             _state.update { it.copy(
-//                selectedCountry = getCountryUseCase.execute(code)
+//                selectedCountry = getCountryUseCase.execute(code) // remove use case implementation
                 selectedCountry = try {
                         countryClient.getCountry(code)
                     } catch(e:Exception) {
