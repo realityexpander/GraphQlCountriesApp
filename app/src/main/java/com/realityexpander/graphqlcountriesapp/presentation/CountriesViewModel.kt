@@ -43,11 +43,11 @@ class CountriesViewModel @Inject constructor(
             _state.update { it.copy(
 //                selectedCountry = getCountryUseCase.execute(code)
                 selectedCountry = try {
-                    countryClient.getCountry(code)
-                } catch(e:Exception) {
-                    println("Error: $e")
-                    DetailedCountry("ERROR", e.localizedMessage, "⚠️", "", "", emptyList(), "")
-                }
+                        countryClient.getCountry(code)
+                    } catch(e:Exception) {
+                        println("Error: $e")
+                        DetailedCountry("ERROR", e.localizedMessage, "⚠️", "", "", emptyList(), "")
+                    }
             ) }
         }
     }
