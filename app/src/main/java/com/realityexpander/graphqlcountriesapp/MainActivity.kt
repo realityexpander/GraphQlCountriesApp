@@ -20,6 +20,11 @@ import dagger.hilt.android.HiltAndroidApp
 
 // Studio (to try queries):
 // https://studio.apollographql.com/public/countries/explorer?variant=current
+// https://studio.apollographql.com/public/countries/home/?variant=current
+
+// GraphQL playground:
+// https://countries.trevorblades.com/graphql
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
